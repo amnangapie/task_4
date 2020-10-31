@@ -4,8 +4,6 @@ import ua.nure.sorokina.bootstrap.DataBootstrap;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class SqlTask {
@@ -37,8 +35,8 @@ public class SqlTask {
         }
     }
 
-    public static Set<String> getTeachersWithMoreThanXStudents(int n) throws SQLException {
-        Set<String> teachersInfo = new TreeSet<>();
+    public static TreeSet<String> getTeachersWithMoreThanXStudents(int n) throws SQLException {
+        TreeSet<String> teachersInfo = new TreeSet<>();
         ResultSet rs = DBHelper.executeQuery("SELECT "
                 + "Courses_info.teacher_id, "
                 + "Teachers.first_name, Teachers.last_name, Teachers.email "
@@ -64,8 +62,8 @@ public class SqlTask {
         return teachersInfo;
     }
 
-    public static Set<String> getExcellentStudentsInProgramming(int mark) throws SQLException {
-        Set<String> studentsInfo = new HashSet<>();
+    public static TreeSet<String> getExcellentStudentsInProgramming(int mark) throws SQLException {
+        TreeSet<String> studentsInfo = new TreeSet<>();
         ResultSet rs = DBHelper.executeQuery("SELECT Students.id, "
                 + "Students.first_name, Students.last_name "
                 + "FROM Students, Marks "
@@ -85,8 +83,8 @@ public class SqlTask {
         return studentsInfo;
     }
 
-    public static Set<String> getGroupStatistics() throws SQLException {
-        Set<String> groupInfo = new HashSet<>();
+    public static TreeSet<String> getGroupStatistics() throws SQLException {
+        TreeSet<String> groupInfo = new TreeSet<>();
         ResultSet rs = DBHelper.executeQuery("SELECT Groups.name, " +
                 "COUNT(Students.id) as students, " +
                 "A.excellent_students, B.teachers FROM Students " +
