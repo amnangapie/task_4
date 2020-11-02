@@ -85,23 +85,23 @@ public class SqlTask {
 
     public static TreeSet<String> getGroupStatistics() throws SQLException {
         TreeSet<String> groupInfo = new TreeSet<>();
-        ResultSet rs = DBHelper.executeQuery("SELECT Groups.name, " +
-                "COUNT(Students.id) as students, " +
-                "A.excellent_students, B.teachers FROM Students " +
-                "JOIN Groups ON Groups.id = Students.group_id " +
-                "JOIN (SELECT COUNT(Students.id) as excellent_students, " +
-                "Students.group_id as group_id FROM Students " +
-                "WHERE Students.id IN (SELECT Marks.student_id FROM Marks) " +
-                "AND Students.id NOT IN (SELECT Marks.student_id FROM Marks " +
-                "WHERE Marks.value < 5) GROUP BY Students.group_id) A " +
-                "ON A.group_id = Students.group_id " +
-                "JOIN (SELECT COUNT(DISTINCT Courses.teacher_id) as teachers, " +
-                "Students.group_id as group_id " +
-                "FROM Courses, Student_Courses, Students " +
-                "WHERE Student_Courses.course_id = Courses.id " +
-                "AND Students.id = Student_Courses.student_id " +
-                "GROUP BY Students.group_id) B " +
-                "ON B.group_id = Students.group_id GROUP BY Students.group_id ");
+        ResultSet rs = DBHelper.executeQuery("SELECT Groups.name, "
+                + "COUNT(Students.id) as students, "
+                + "A.excellent_students, B.teachers FROM Students "
+                + "JOIN Groups ON Groups.id = Students.group_id "
+                + "JOIN (SELECT COUNT(Students.id) as excellent_students, "
+                + "Students.group_id as group_id FROM Students "
+                + "WHERE Students.id IN (SELECT Marks.student_id FROM Marks) "
+                + "AND Students.id NOT IN (SELECT Marks.student_id FROM Marks "
+                + "WHERE Marks.value < 5) GROUP BY Students.group_id) A "
+                + "ON A.group_id = Students.group_id "
+                + "JOIN (SELECT COUNT(DISTINCT Courses.teacher_id) as teachers, "
+                + "Students.group_id as group_id "
+                + "FROM Courses, Student_Courses, Students "
+                + "WHERE Student_Courses.course_id = Courses.id "
+                + "AND Students.id = Student_Courses.student_id "
+                + "GROUP BY Students.group_id) B "
+                + "ON B.group_id = Students.group_id GROUP BY Students.group_id ");
 
         while (rs.next()) {
             String record = rs.getString("name") + ": students - "
